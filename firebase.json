@@ -1,6 +1,7 @@
 {
   "hosting": [
     {
+      "target":"uptamira",
       "public": "dist/uptamira",
       "ignore": [
         "firebase.json",
