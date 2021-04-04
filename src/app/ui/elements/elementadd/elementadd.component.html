@@ -1,3 +1,33 @@
+<button class="btn btn-block btn-secondary" (click)="uploadImgToggle()" *ngIf="!uploadImage">Agregar Imagen</button>
+<button class="btn btn-block btn-danger" id="imgToggle" (click)="uploadImgToggle()" *ngIf="uploadImage">Cancel</button>
+<div *ngIf="uploadImage">
+  <app-uploadimage [item]="item"></app-uploadimage>
+</div>
+<div *ngIf="!uploadImage">
+  <div class="row" *ngIf="item.images && item.images[0]">
+    <!-- Carousel images-->
+    <div
+    *ngFor="let image of item.images; let i = index"
+    class="col-lg-6"
+    
+  >
+    <img
+      class="d-block"
+      style="max-height: 150px;max-width: 150px;"
+      [src]="image.url"
+      [alt]="i"
+    />
+    <button
+      class="btn btn-danger btn-block"
+      (click)="deleteImage(image)"
+    >
+      Remove
+    </button>
+  </div>
+    <!--END CAROUSEL-->
+  </div>
+  
+</div>
 <div class="container jumbotron m-t-20">
   <div class="col-12 row" *ngIf="editingProfile">
     <button (click)="regresarPerfil()" class="btn btn-danger">Regresar</button>

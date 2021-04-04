@@ -62,6 +62,7 @@ export class FileService {
       }
     
       guaradarFile(imagenes: FileModel[], element: ElementId, single: boolean = false ){
+        console.log("element on service: "+JSON.stringify(element))
       const item = imagenes[0];
       const uploadTask: firebase.default.storage.UploadTask =
                          this.storageRef.child(`${ element.url } /${ item.nombreArchivo}`)
@@ -89,7 +90,7 @@ export class FileService {
                                   url:item.url
                                 });
                               
-                                this.guardarFile (element, imagenes);
+                                //this.guardarFile (element, imagenes);
                          
                               
                               });
@@ -115,6 +116,7 @@ export class FileService {
       //console.log("FGUARDANDO FILE: "+ JSON.stringify(element)+" TO: "+ url);
       this.imagenes = [];
       const userRef = this.db.doc(url);
+      console.log("setting element:"+JSON.stringify(element)+url)
       return userRef.set(element, { merge: true });
     }
     

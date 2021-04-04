@@ -4,10 +4,8 @@ import { Router } from '@angular/router';
 import { GroupedObservable, of } from 'rxjs';
 import { UserModel } from 'src/app/core/collections/user.model';
 import { AfsService } from 'src/app/core/services/afs.service';
-import { AuthService } from 'src/app/core/services/auth.service';
-import { FirestoreService } from 'src/app/core/services/firebase.service';
-import { ProfileService } from 'src/app/core/services/profile.service';
 import {ElementId} from '../../../core/collections/element';
+import * as firebase from 'firebase';
 
 
 @Component({
@@ -15,14 +13,6 @@ import {ElementId} from '../../../core/collections/element';
   templateUrl: './elementadd.component.html',
   styleUrls: ['./elementadd.component.css']
 })
-/*export class ElementaddComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
-}*/
 export class ElementaddComponent implements OnInit, OnChanges {
 
   forma: FormGroup = this.fb.group({} as ElementId);
@@ -35,6 +25,8 @@ export class ElementaddComponent implements OnInit, OnChanges {
   @Output() itemSaved: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() backProfile: EventEmitter<boolean> = new EventEmitter<boolean>();
   formElement : any;
+  uploadImage = false;
+  private storageRef = firebase.default.storage().ref();
 
   constructor(private fb: FormBuilder, private afsService : AfsService) { 
    
@@ -44,47 +36,26 @@ export class ElementaddComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-   
+    this.crearFormulario();
     //this.crearFormulario();
+  }
+  uploadImgToggle(){
+    this.uploadImage = !this.uploadImage;
   }
   crearFormulario() {
     this.formReset();
     
    // console.log("newel: "+JSON.stringify(this.newitem)+"item: "+JSON.stringify(this.item))
     
-   /* if(this.isNewElement)
-    {
-      const id = this.afsService.createId();
-       
-       //console.log("isnewElID: "+id)
-       switch(this.newitem){
-         case "taller":
-          this.formElement = new Taller();
-          this.formElement.url = `talleres/${id}`;
-           break;
-          case "comunidad":
-            this.formElement = new Comunidad();
-            this.formElement.url = `comunidades/${id}`;
-           break;
-          default:
-            this.formElement = {} as Item;
-            break;
-        
-       }
-       this.formElement.id = id;
-    }else if(this.editingProfile){
-      this.formElement = this.profile;
-    }
-    else{*/
-      //console.log("itemTemplate: "+this.newitem)
       this.formElement = this.item;
       if(this.item.uid === undefined || this.item.uid === null)
     {
       const id = this.afsService.createId();
       this.formElement.id = id;
-    }
+      this.item.id = this.item.id;
+    }else this.item.id = this.item.uid;
     //}
-    
+    this.item.url = this.element+'/'+this.item.id;
     //console.log("form datebirth: "+JSON.stringify(this.formElement.dateBirth))
     this.forma = this.fb.group(this.formElement);
     //ading default fields to form name and description
@@ -123,10 +94,7 @@ export class ElementaddComponent implements OnInit, OnChanges {
     this.forma.setControl('name', this.fb.control({ value: this.formElement.name, disabled: enabled }, [Validators.required, Validators.minLength(6)]));
   }
   formReset() {
-    //const description = this.formElement.description;
     this.forma.reset();
-    //this.formElement.elements = [];
-    //this.formElement.description = '';
   }
 
   //DELETINGS CONTROLS
@@ -173,41 +141,11 @@ export class ElementaddComponent implements OnInit, OnChanges {
       });
 
     }
-    
-    this.item = this.forma.value;
-   /* if(this.forma.get('email')?.value !== undefined)
-       this.formElement.email = this.forma.get('email')?.value;
-    if(this.forma.get('displayName')?.value !== undefined)
-       this.formElement.displayName = this.forma.get('displayName')?.value;
-    if(this.forma.get('description')?.value !== undefined)   
-       this.formElement.description = this.forma.get('description')?.value;
-    if(this.forma.get('title')?.value !== undefined)  
-       this.formElement.title = this.forma.get('title')?.value;
-    if(this.forma.get('autor')?.value !== undefined)
-       this.formElement.autor = this.forma.get('autor')?.value;
-    if(this.forma.get('name')?.value !== undefined)   
-       this.formElement.name = this.forma.get('name')?.value;
-    if(this.forma.get('owner')?.value !== undefined)  
-       this.formElement.owner = this.forma.get('owner')?.value;
-    if(this.forma.get('link')?.value !== undefined)  
-       this.formElement.link = this.forma.get('link')?.value;
-    if(this.forma.get('pais')?.value !== undefined)  
-       this.formElement.pais = this.forma.get('pais')?.value;
-    if(this.forma.get('genero')?.value !== undefined)
-       this.formElement.genero = this.forma.get('genero')?.value;
-    if(this.forma.get('linkedin')?.value !== undefined)   
-       this.formElement.linkedin = this.forma.get('linkedin')?.value;
-    if(this.forma.get('facebook')?.value !== undefined)  
-       this.formElement.facebook = this.forma.get('facebook')?.value;
-    if(this.forma.get('github')?.value !== undefined)  
-       this.formElement.github = this.forma.get('github')?.value;
-    if(this.forma.get('twitter')?.value !== undefined)  
-       this.formElement.twitter = this.forma.get('twitter')?.value;
-    if(this.forma.get('dateBirth')?.value !== undefined)  
-       this.formElement.dateBirth = this.forma.get('dateBirth')?.value;*/
+    Object.assign(this.item,this.forma.value);
+    //this.item = this.forma.value;
        console.log("FORMELEMENT: "+JSON.stringify(this.formElement));
        console.log("ITEM: "+JSON.stringify(this.item));
-     this.afsService.set(this.element+'/'+this.formElement.id,this.item).then(res =>{
+    this.afsService.set(this.item.url,this.item).then(res =>{
         console.log("EDITADO: ",JSON.stringify(res))
       }).catch(error=>{
         console.log("ERROR DE EDICION: ");
@@ -216,6 +154,24 @@ export class ElementaddComponent implements OnInit, OnChanges {
       
 
     
+  }
+  deleteImage(image: ElementId) {
+    this.item.images?.splice(this.item.images?.indexOf(image),1);
+    console.log("borrando: "+image.id+'/'+image.name)
+    firebase.default.storage().refFromURL(image.url).delete().then(() => {
+      console.log('File Successfully deleted');
+       // File deleted successfully
+     }).catch(function(error) {
+       console.log('File UNSuccessfully deleted'+JSON.stringify(error));
+       // Uh-oh, an error occurred!
+     });;
+       /*this.storageRef.child(image.id).delete().then(() => {
+       console.log('File Successfully deleted');
+        // File deleted successfully
+      }).catch(function(error) {
+        console.log('File UNSuccessfully deleted'+JSON.stringify(error));
+        // Uh-oh, an error occurred!
+      });*/
   }
   regresarPerfil(){
     this.backProfile.emit(true);
