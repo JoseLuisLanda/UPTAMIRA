@@ -8,12 +8,13 @@ import { ModalComponent } from '../modal/modal.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UploadimageComponent } from './uploadimage/uploadimage.component';
 import { NgDropFilesDirective } from 'src/app/core/directives/ng-drop-files.directive';
+import { ElementcardComponent } from './elementcard/elementcard.component';
 
 @NgModule({
   imports: [
     CommonModule,ElementsRoutingModule,ReactiveFormsModule, FormsModule
   ],
   declarations: [ElementlistComponent, ElementaddComponent, ElementmainComponent,NgDropFilesDirective,
-    ModalComponent,UploadimageComponent]
+    ModalComponent,UploadimageComponent, ElementcardComponent]
 })
 export class ElementsModule { }
