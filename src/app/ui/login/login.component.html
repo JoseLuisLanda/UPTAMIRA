@@ -1,57 +1,70 @@
-<div class="limiter animated fadeInLeft">
-  <div class="container-login100">
-      <div style="padding-left: 20px;padding-right: 20px; padding: 1vw;" class="wrap-login100">
+<div class="limiter animated fadeInLeft" >
+  <div class="container-login100" style="padding-top: 100px;">
+      <div style="padding-left: 20px;padding-right: 20px; padding: 1vw;" id="loginDiv" class="wrap-login200">
           <form (ngSubmit)="onLogin(f) " #f="ngForm"  class="login100-form validate-form flex-sb flex-w">
 
-              <span class="login100-form-title p-b-20">
-                Iniciar Sesión
+              <span class="login100-form-title p-b-20 mt-3">
+                <h2 class="text-white">Iniciar Sesión</h2>
             </span>
 
-              <span *ngIf="f.submitted && f.controls['email'].errors" class="text-danger">Un correo válido es obligatorio</span>
-              <div class="wrap-input100 m-b-10">
-                  <input [(ngModel)]="user.email" required maxlength="30" class="input100" type="email" name="email" placeholder="Email" email>
+              
 
-                  <span class="focus-input100"></span>
-              </div>
+<div class="row mt-3 mb-4" style="padding-left: 20px; padding-right: 20px;">
+<div class="paddingcontainer col-md-6 col-sm-12">
+  <span *ngIf="f.submitted && f.controls['email'].errors" class="text-danger">Un correo válido es obligatorio</span>
+  <div class="form-group mb-3">
+    <label class="label text-white mb-2">Usuario:</label>
+    <input [(ngModel)]="user.email" required maxlength="30" class="form-control" type="email" name="email" placeholder="Email" email>
 
-              <span *ngIf="f.submitted && f.controls['pass'].errors" class="text-danger">La contraseña debe contener más de 6 caracteres.</span>
-              <div class="wrap-input100 m-b-10" data-validate="Password is required">
-                  <input [(ngModel)]="user.password" required minlength="5" class="input100" type="password" name="pass" placeholder="Contraseña">
-                  <span class="focus-input100"></span>
-              </div>
+    <span class="focus-input100"></span>
+</div>
 
-              <div class="flex-sb-m w-full p-t-1 p-b-20">
-                  <div class="contact100-form-checkbox">
-                      <input [(ngModel)]="user.rememberme" class="input-checkbox100" id="ckb1" type="checkbox" name="rememberme">
-                      <label class="label-checkbox100" for="ckb1">
-                        Recordar mi usuario
-                    </label>
-                  </div>
+<span *ngIf="f.submitted && f.controls['pass'].errors" class="text-danger">La contraseña debe contener más de 6 caracteres.</span>
+<div class="form-group mb-3" data-validate="Password is required">
+  <label class="label text-white mb-2">Password:</label>
+    <input [(ngModel)]="user.password" required minlength="5" class="form-control" type="password" name="pass" placeholder="Contraseña">
+    <span class="focus-input100"></span>
+</div>
 
-                  <div>
-                      <a routerLink="/register" class="txt1">
-                        ¿No tienes cuenta?
-                    </a>
-                  </div>
-              </div>
+<div class="flex-sb-m w-full p-t-1 p-b-20">
+    <div class="contact100-form-checkbox">
+        <input [(ngModel)]="user.rememberme" class="input-checkbox100" id="ckb1" type="checkbox" name="rememberme">
+        <label class="label-checkbox100" for="ckb1">
+          Recordar mi usuario
+      </label>
+    </div>
 
-              <div class="container-login100-form-btn m-t-15">
-                  <button class="login100-form-btn" type="submit">
-                    Ingresar
-                </button>
-               
-              </div>
-              <div class="container-login100-form-btn m-t-15">
+    <div>
+        <a routerLink="/register" class="txt1">
+          ¿No tienes cuenta?
+      </a>
+    </div>
+</div>
+
+<div class="container-login100-form-btn m-t-15">
+    <button class="btn btn-lg col-12 btn-primary" type="submit">
+      Ingresar
+  </button>
+ 
+</div>
+
+</div>
+             
+<div class="paddingcontainer col-md-6 col-sm-12">
+  <div class="row">
+    <h3 class="text-white text-center">Identificate con Redes sociales</h3>
+  </div>
+              <div class="row mt-4">
                   <div class="col-6 text-center">
-                    <button (click)="loginFace()" type="button"  class="btn btn-sm btn-info btn-block ">Inicia Sesión  <i class="fab fa-facebook"></i></button>
+                    <button (click)="loginFace()" type="button"  class="btn btn-lg btn-outline-info text-white btn-block col-12 ">Facebook</button>
                   </div>
                   <div class="col-6 text-center">
-                    <button (click)="loginGmail()" type="button" class="btn btn-sm btn-danger btn-block ">Inicia Sesión  <i class="fab fa-google"></i></button>
+                    <button (click)="loginGmail()" type="button" class="btn btn-lg btn-outline-warning text-white btn-block col-12">Gmail</button>
                   </div>
                 </div>
                 <div class="container-login100-form-btn m-t-15">
                   <div class="col-12  text-center">
-                    <button (click)="recoveryPass(user.email)" type="button"  class="btn btn-sm btn-danger btn-block ">Recuperar mi contraseña</button>
+                    <button (click)="recoveryPass(user.email)" type="button"  class="btn btn-lg btn-danger text-white btn-block col-12">Recuperar mi contraseña</button>
                   </div>
                 </div>
                 <div class="container-login100-form-btn m-t-15">
@@ -66,6 +79,9 @@
             
               </div>
                 </div>
+</div>
+
+</div>
               <p class="text-danger">{{errMsg}}</p>
           </form>
       </div>

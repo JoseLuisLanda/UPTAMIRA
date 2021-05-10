@@ -83,7 +83,7 @@ export class AuthService extends RoleValidator{
     }
   }
 
-  async newUser(userData: UserModel): Promise<any> {
+  async newUser(userData: ElementId): Promise<any> {
     try {
       const { user } = await this.afAuth.createUserWithEmailAndPassword(
         userData.email,
@@ -136,6 +136,7 @@ export class AuthService extends RoleValidator{
       email: user.email,
       emailVerified: user.emailVerified,
       displayName: user.displayName,
+      normalizedName: user.displayName.toLower(),
       photoURL: user.photoURL ? user.photoURL : 'assets/photo',
       refreshToken: user.refreshToken ? user.refreshToken : '',
       organization: user.email!.split('@')[1],

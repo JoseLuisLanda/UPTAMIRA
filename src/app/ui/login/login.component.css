@@ -1,0 +1,9 @@
+.wrap-login200{
+border-radius: 10px;
+background: rgba(0, 0, 0, 0.7);
+}
+.paddingcontainer{
+    padding: 20px;
+    background-color: rgba(20, 0, 20, 0.6);
+    border-radius: 10px;
+}

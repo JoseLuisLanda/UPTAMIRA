@@ -17,7 +17,7 @@ export class ElementaddComponent implements OnInit, OnChanges {
 
   forma: FormGroup = this.fb.group({} as ElementId);
   @Input() isNewElement: boolean = false;
-  @Input() item: ElementId = {} as ElementId;
+  @Input() item: ElementId = {uid:null,id:null,images:[]} as ElementId;
   @Input() profile: UserModel = {} as UserModel;
   @Input() editingProfile: boolean = false;
   @Input() element: string = "default";
@@ -43,11 +43,14 @@ export class ElementaddComponent implements OnInit, OnChanges {
     this.uploadImage = !this.uploadImage;
   }
   crearFormulario() {
+    this.formElement = this.item;
+    if(this.item!== undefined)
+    {
     this.formReset();
     
    // console.log("newel: "+JSON.stringify(this.newitem)+"item: "+JSON.stringify(this.item))
     
-      this.formElement = this.item;
+     // this.formElement = this.item;
       if(this.item.uid === undefined || this.item.uid === null)
     {
       const id = this.afsService.createId();
@@ -59,6 +62,7 @@ export class ElementaddComponent implements OnInit, OnChanges {
     //console.log("form datebirth: "+JSON.stringify(this.formElement.dateBirth))
     this.forma = this.fb.group(this.formElement);
     //ading default fields to form name and description
+    this.formElement.displayName !== undefined ? this.addTextInput('name', this.formElement.displayName != null ? this.formElement.displayName : "") : null;
     this.formElement.name !== undefined ? this.addTextInput('name', this.formElement.name != null ? this.formElement.name : "") : null;
     this.formElement.owner !== undefined ? this.addTextInput('owner', this.formElement.owner != null ? this.formElement.owner : "") : null;
     this.formElement.autor !== undefined ? this.addTextInput('autor', this.formElement.autor != null ? this.formElement.autor : "") : null;
@@ -77,6 +81,7 @@ export class ElementaddComponent implements OnInit, OnChanges {
 
     this.formElement.displayName != undefined ? this.addTextInput('displayName',
       this.formElement.displayName != null ? this.formElement.displayName : '') : null;
+  }
   }
   //ADDING FIELDS
   
@@ -145,6 +150,10 @@ export class ElementaddComponent implements OnInit, OnChanges {
     //this.item = this.forma.value;
        console.log("FORMELEMENT: "+JSON.stringify(this.formElement));
        console.log("ITEM: "+JSON.stringify(this.item));
+
+       //ADDING NORMALIZED NAMES
+       this.formElement.displayName !== undefined ? this.item.normalizedName = this.formElement.displayName.toLower() : null;
+       this.formElement.name !== undefined ? this.item.normalizedName = this.formElement.name.toLower() : null;
     this.afsService.set(this.item.url,this.item).then(res =>{
         console.log("EDITADO: ",JSON.stringify(res))
       }).catch(error=>{
@@ -165,13 +174,7 @@ export class ElementaddComponent implements OnInit, OnChanges {
        console.log('File UNSuccessfully deleted'+JSON.stringify(error));
        // Uh-oh, an error occurred!
      });;
-       /*this.storageRef.child(image.id).delete().then(() => {
-       console.log('File Successfully deleted');
-        // File deleted successfully
-      }).catch(function(error) {
-        console.log('File UNSuccessfully deleted'+JSON.stringify(error));
-        // Uh-oh, an error occurred!
-      });*/
+   
   }
   regresarPerfil(){
     this.backProfile.emit(true);

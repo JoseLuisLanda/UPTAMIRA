@@ -1,1 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
+html, body {
+    height: 100%;
+    background-color: khaki;
+  }
+
+  .full-height {
+    height: 100%;
+    background-color: black;
+  }
+  .containermain{
+    bottom:0;
+    left:0;
+    right:0;
+    overflow:hidden;
+    background-color: red;
+    z-index:-1; 
+}
+.containerHalf{
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  }

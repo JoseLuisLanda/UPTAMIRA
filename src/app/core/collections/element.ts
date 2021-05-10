@@ -1,7 +1,9 @@
 export interface Elemento {
     name?: string;
     displayName?: string;
+    normalizedName?: string;
     emailVerified?: boolean;
+    refreshToken?: string;
     photoURL?: string;
     role?: string;
     duration?: number;
@@ -12,7 +14,7 @@ export interface Elemento {
     type?: string;
     url?: string;
     email?: string;
-    psw?: string;
+    password?: string;
     tokn?: string;
     elements?: ElementId[];
     id?:string;

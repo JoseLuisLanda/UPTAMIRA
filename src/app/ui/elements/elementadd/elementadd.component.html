@@ -4,7 +4,7 @@
   <app-uploadimage [item]="item"></app-uploadimage>
 </div>
 <div *ngIf="!uploadImage">
-  <div class="row" *ngIf="item.images && item.images[0]">
+  <div class="row" *ngIf="item && item.images && item.images[0]">
     <!-- Carousel images-->
     <div
     *ngFor="let image of item.images; let i = index"
@@ -34,15 +34,7 @@
      <h1 class="mx-auto">Editar Perfil</h1>
   </div>
   <div class="container mt-3">
-    <button
-      *ngIf="formElement.id == null && !editingProfile"
-      type="button"
-      (click)="formReset()"
-      class="active btn btn-block btn-outline-danger col-6 my-2"
-      id="resetBtn"
-    >
-      Limpiar
-    </button>
+  
     <form
       autocomplete="off"
       [formGroup]="forma"

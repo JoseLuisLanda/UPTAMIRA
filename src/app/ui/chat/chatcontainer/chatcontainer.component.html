@@ -1,0 +1,22 @@
+<div class="main">
+<nav class="navbar navbar-expand-lg navbar-light bg-light col-12 main" style="padding-top: 100px;position: fixed;z-index: 998;">
+  <app-headerchat></app-headerchat>
+</nav>
+
+
+<div class="container col-12" style="padding-top: 200px;padding-bottom:50px;z-index: 997;">
+   
+  
+  <app-cardlist></app-cardlist>
+  
+
+  </div>
+
+  <nav class="col-12 main" style="bottom: 8%;position: fixed;z-index: 998;">
+   <app-searchbar></app-searchbar>
+  </nav>
+</div> 
+<!-- Button trigger modal -->
+
+
+<app-modal [item]="currentItem" [element]="element"></app-modal>

@@ -4,17 +4,17 @@ import { ElementlistComponent } from './elementlist/elementlist.component';
 import { ElementsRoutingModule } from './elements-routing.module';
 import { ElementaddComponent } from './elementadd/elementadd.component';
 import { ElementmainComponent } from './elementmain/elementmain.component';
-import { ModalComponent } from '../modal/modal.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UploadimageComponent } from './uploadimage/uploadimage.component';
 import { NgDropFilesDirective } from 'src/app/core/directives/ng-drop-files.directive';
 import { ElementcardComponent } from './elementcard/elementcard.component';
+import { Sharedmodule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
-    CommonModule,ElementsRoutingModule,ReactiveFormsModule, FormsModule
+    CommonModule,ElementsRoutingModule,ReactiveFormsModule, FormsModule, Sharedmodule
   ],
-  declarations: [ElementlistComponent, ElementaddComponent, ElementmainComponent,NgDropFilesDirective,
-    ModalComponent,UploadimageComponent, ElementcardComponent]
+  declarations: [ElementlistComponent, ElementmainComponent,NgDropFilesDirective,
+    UploadimageComponent, ElementcardComponent]
 })
 export class ElementsModule { }

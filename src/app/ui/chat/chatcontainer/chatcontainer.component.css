@@ -1,0 +1,12 @@
+.placeatbottom{
+    position: absolute;
+                bottom: 0px;
+            
+}
+
+.chatBackground{
+    height: 100%;
+    background-image: url('/assets/img/uptback.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+}

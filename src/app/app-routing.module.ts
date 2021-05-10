@@ -22,7 +22,21 @@ const routes: Routes = [
       }
     ]
   },
-  {path: '**', redirectTo: 'home'},
+  {
+    path: 'chat', canActivate:[AuthGuard],
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./ui/chat/chat.module').then(m => m.ChatModule)
+      },
+      {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full'
+      }
+    ]
+  },
+  {path: '**', redirectTo: 'chat'},
   {path: 'home', component: HomeComponent},
   {path: '', component: HomeComponent}
   ];

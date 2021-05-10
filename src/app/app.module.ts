@@ -16,6 +16,9 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { ChatModule } from './ui/chat/chat.module';
+import { Sharedmodule } from './shared/shared.module';
+import { CommonModule } from '@angular/common';
 
 
 @NgModule({
@@ -28,8 +31,13 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     RegisterComponent
   ],
   imports: [
-    BrowserModule,AppRoutingModule, ElementsModule, HttpClientModule, FormsModule,
-    ReactiveFormsModule, RouterModule,
+    HttpClientModule,
+    Sharedmodule,
+    BrowserModule,
+    AppRoutingModule, 
+    ElementsModule, 
+    ChatModule,
+ RouterModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFirestoreModule,

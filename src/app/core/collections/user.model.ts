@@ -4,6 +4,7 @@ export interface UserModel {
   name?: string;
   google?: boolean;
   displayName?: string;
+  normalizedName?: string;
   organization?: string;
   uid: string;
   lastLoginAt?: string;
