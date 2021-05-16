@@ -1,55 +1,33 @@
-<div class="main" style="padding-top: 100px;">
-  <!--div class="row">
-    <div class="col-lg-10">
-      <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item" role="presentation">
-          <button (click)="setElement('grupo')" class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#groups" type="button" role="tab" aria-controls="home" aria-selected="true">Grupos</button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button (click)="setElement('usuario')"  class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#users" type="button" role="tab" aria-controls="profile" aria-selected="false">Usuarios</button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button (click)="setElement('evento')"  class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#events" type="button" role="tab" aria-controls="contact" aria-selected="false">Eventos</button>
-        </li>
-      </ul>
+<div class="main">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light col-12 main" style="padding-top: 100px;position: fixed;z-index: 998;">
+    <app-headerchat [navbar]="groupElement" (selectedItem) = "selectedElement($event)" class="col-12"></app-headerchat>
+  </nav>
+  <div class="container col-12" style="padding-top: 200px;padding-bottom:150px;z-index: 997;">
+   
+    <app-elementlist [item]="currentItem" [element]="element"></app-elementlist>
     </div>
-   <div class="col-lg-2">
-     <button class="btn btn-primary btn-block mx-auto" (click)="newItem()">Nuevo</button>
-   </div>
-  </div>
 
-  <div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade show active" id="groups" role="tabpanel" aria-labelledby="home-tab">
-      <app-elementlist [item]="currentItem" [element]="element"></app-elementlist>
-    </div>
-    <div class="tab-pane fade" id="users" role="tabpanel" aria-labelledby="profile-tab">
-      
-    </div>
-    <div class="tab-pane fade" id="events" role="tabpanel" aria-labelledby="contact-tab">
-    </div>
-  </div-->
-  <div class="row">
-    <div class="col-12 col-lg-10">
- 
-      <div class="nav justify-content-center" role="group" aria-label="Basic radio toggle button group">
-        <input type="radio" (click)="setElement('grupo')" class="btn-check btn-block" name="btnradio" id="btnradio1" autocomplete="off" checked>
-        <label class="btn btn-outline-primary" for="btnradio1">Grupos</label>
-      
-        <input type="radio" (click)="setElement('usuario')" class="btn-check btn-block" name="btnradio" id="btnradio2" autocomplete="off">
-        <label class="btn btn-outline-primary" for="btnradio2">Usuarios</label>
-      
-        <input type="radio" (click)="setElement('evento')" class="btn-check btn-block" name="btnradio" id="btnradio3" autocomplete="off">
-        <label class="btn btn-outline-primary" for="btnradio3">Publicaciones</label>
+
+  <nav class="col-12 main" style="bottom: 7%;position: fixed;z-index: 998;background-color: grey;">
+    <div class="row">
+      <div class="col-12 col-lg-10">
+   
+        <div class="nav justify-content-center" role="group" aria-label="Basic radio toggle button group">
+          <input type="radio" (click)="setElement('grupo')" class="btn-check btn-block" name="btnradio" id="btnradio1" autocomplete="off" checked>
+          <label class="btn btn-outline-primary" for="btnradio1">Grupos</label>
+        
+          <input type="radio" (click)="setElement('usuario')" class="btn-check btn-block" name="btnradio" id="btnradio2" autocomplete="off">
+          <label class="btn btn-outline-primary" for="btnradio2">Usuarios</label>
+        
+          <input type="radio" (click)="setElement('evento')" class="btn-check btn-block" name="btnradio" id="btnradio3" autocomplete="off">
+          <label class="btn btn-outline-primary" for="btnradio3">Publicaciones</label>
+        </div>
+      </div>
+      <div class="col-12 col-lg-2" >
+        <button class="btn btn-warning btn-block" (click)="newItem()">Nuevo</button>
       </div>
     </div>
-    <div class="col-12 col-lg-2" >
-      <button class="btn btn-warning btn-block" (click)="newItem()">Nuevo</button>
-    </div>
-  </div>
-  <div class="row">
-    <app-elementlist [item]="currentItem" [element]="element"></app-elementlist>
-  </div>
-
+   </nav>
  </div>
 <!-- Button trigger modal -->
 <button type="button" id="showModal" data-bs-toggle="modal" data-bs-target="#exampleModal">

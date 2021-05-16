@@ -10,7 +10,7 @@ import { Sharedmodule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
-  declarations: [CardComponent, ChatcontainerComponent, CardlistComponent, SearchbarComponent, HeaderchatComponent],
+  declarations: [CardComponent, ChatcontainerComponent, CardlistComponent, SearchbarComponent],
   imports: [
     ChatRoutingModule,
     Sharedmodule

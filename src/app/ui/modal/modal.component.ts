@@ -9,6 +9,7 @@ import { ElementId } from 'src/app/core/collections/element';
 export class ModalComponent implements OnInit, OnChanges {
   @Input() item: ElementId = {} as ElementId;
   @Input() element: string;
+  @Input() edit: boolean = false;
   constructor() { }
   ngOnChanges(changes: SimpleChanges): void {
     console.log("ITEM CHANGE: "+JSON.stringify(this.item)+this.element)

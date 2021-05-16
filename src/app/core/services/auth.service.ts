@@ -55,6 +55,7 @@ export class AuthService extends RoleValidator{
         console.log(error);
       });
   }
+
   getUserProfile(userId: string, result: any){
     //let query = (ref:QueryFn<firebase.default.firestore.DocumentData>) => ref.where('name', '==', 'recargas');
    var doc = this.afsService.doc$(`users/${ userId }`).subscribe(res=>{
@@ -65,6 +66,7 @@ export class AuthService extends RoleValidator{
     }
   },err=>{console.log("error: "+err);})
   }
+
   async login(userData: UserModel): Promise<any> {
     try {
       const d = await this.afAuth.signInWithEmailAndPassword(
@@ -72,7 +74,7 @@ export class AuthService extends RoleValidator{
         userData.password!
       );
       this.credentialEmail = d.credential;
-
+      
       /*if (userData.rememberme)
         this.afAuth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
       else this.afAuth.setPersistence(firebase.auth.Auth.Persistence.NONE);*/
@@ -125,7 +127,7 @@ export class AuthService extends RoleValidator{
   isAuthenticated() {
     return this.afAuth.authState.pipe(first()).toPromise();
   }
-  
+
   private updateUserData(user: any) {
     const userRef: AngularFirestoreDocument<UserModel> = this.db.doc(
       `usuario/${user.uid}`

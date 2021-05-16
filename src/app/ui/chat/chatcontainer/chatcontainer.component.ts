@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChatcontainerComponent implements OnInit {
 users = [{},{},{},{}];
+element="Chatea Conmigo";
   private mine = true;
   constructor() { }
 

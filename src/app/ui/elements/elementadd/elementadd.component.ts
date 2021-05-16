@@ -152,8 +152,15 @@ export class ElementaddComponent implements OnInit, OnChanges {
        console.log("ITEM: "+JSON.stringify(this.item));
 
        //ADDING NORMALIZED NAMES
-       this.formElement.displayName !== undefined ? this.item.normalizedName = this.formElement.displayName.toLower() : null;
-       this.formElement.name !== undefined ? this.item.normalizedName = this.formElement.name.toLower() : null;
+       this.formElement.displayName !== undefined ? this.item.normalizedName = this.formElement.displayName.toLowerCase() : null;
+       this.formElement.name !== undefined ? this.item.normalizedName = this.formElement.name.toLowerCase() : null;
+       //AADDING OWNER
+       this.item.owner = localStorage.getItem("userId");
+       //adding defaults
+       if(this.element === "grupo"){
+         this.item.navBarItems = [{name:"Grupos", normalizedName:"grupo",url:`grupo/${this.item.uid}`},{name:"Usuarios", normalizedName:"usuario"}] as ElementId[];
+         this.item.users = [{id:localStorage.getItem("userId"),name:localStorage.getItem("userName")}] as ElementId[];
+       }
     this.afsService.set(this.item.url,this.item).then(res =>{
         console.log("EDITADO: ",JSON.stringify(res))
       }).catch(error=>{

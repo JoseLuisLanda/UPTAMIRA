@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ElementId } from 'src/app/core/collections/element';
+import { FirestoreService } from 'src/app/core/services/firebase.service';
 
 @Component({
   selector: 'app-elementmain',
@@ -7,33 +8,36 @@ import { ElementId } from 'src/app/core/collections/element';
   styleUrls: ['./elementmain.component.css']
 })
 export class ElementmainComponent implements OnInit {
-  currentItem:ElementId = {} as ElementId;
+  currentItem:ElementId = {name:"", description:""} as ElementId;
   element:string = "grupo";
   userTemplate: ElementId = {displayName:"",email:""} as ElementId;
-  groupTemplate: ElementId = {name:"",owner:"", description:""} as ElementId;
+  defaultTemplate: ElementId = {name:"", description:""} as ElementId;
   eventTemplate: ElementId = {name:"", description:""} as ElementId;
-  constructor() { }
+  groupElement: ElementId = {navBarItems:[{name:"Grupos",normalizedName:"grupo"},
+  {name:"Usuarios",normalizedName:"usuario"},
+  {name:"Eventos",normalizedName:"evento"},{name:"Cursos",normalizedName:"curso"},
+  {name:"Anuncios",normalizedName:"anuncio"}]} as ElementId;
+  constructor(private firebaseSvc: FirestoreService) { }
 
   ngOnInit() {
   }
   newItem(){
-    switch(this.element){
-      case "grupo":
-        this.currentItem = this.groupTemplate;
-        break;
-      case "usuario":
-        this.currentItem = this.userTemplate;
-        break;
-      case "evento":
-        this.currentItem = this.eventTemplate;
-        break;
-    }
-    (<HTMLInputElement> document.getElementById("showModal")).click();
-    //console.log("nuevo elemento: "+this.element);
+    this.firebaseSvc.getCollection(this.element,10,"name","default").subscribe((data) => {
+      //console.log("GETTING DATA"+ JSON.stringify(data));
+     if(data[0])
+     this.currentItem  = data[0].template as ElementId;
+     else
+     this.currentItem = this.defaultTemplate;
+     (<HTMLInputElement> document.getElementById("showModal")).click();
+   });
+   
   }
-setElement(elem:string){
-    console.log("setting elemento: "+elem);
-  this.element = elem;
+  selectedElement(elem:ElementId){
+    //console.log("setting elemento: "+JSON.stringify(elem));
+    if(elem.name == "default")
+    this.newItem();
+    else
+  this.element = elem.normalizedName;
 
 }
 }

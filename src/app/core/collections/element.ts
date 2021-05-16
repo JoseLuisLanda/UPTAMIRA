@@ -34,6 +34,9 @@ export interface Elemento {
     twitter?: string;
     github?: string;
     date?: firebase.default.firestore.Timestamp;
+    navBarItems?:ElementId[];
+    template?:ElementId;
+    users?:ElementId[];
 }
 
 export interface ElementId extends Elemento { uid: string; }

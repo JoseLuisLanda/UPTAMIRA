@@ -53,15 +53,20 @@ export class FirestoreService {
       });
   }
 
-  public getCollection(nameCollection: string, count: number = 10,collection:string = "",value:string = "") {
-    if(collection === "" && value === "")
+  public getCollection(nameCollection: string, count: number = 10, keySearch:string = "", keyValue:string = "", collection:string = "",value:string = "") {
+    if(collection !== "" && value !== "")
     {
       this.itemsCollection = this.db.collection<any>(nameCollection, (ref) =>
-      ref.limit(count));
-    }else{
+      ref.where(collection, 'array-contains',value));
+     
+    }else if(keySearch !=="" && keyValue !== ""){
       //console.log("CALLING WHERE: "+collection + value)
       this.itemsCollection = this.db.collection<any>(nameCollection, (ref) =>
-      ref.where(collection, 'array-contains',value));
+      ref.where(keySearch, '==',keyValue));
+    }else{
+      console.log("GETTING COLLECTION: "+nameCollection);
+      this.itemsCollection = this.db.collection<any>(nameCollection, (ref) =>
+      ref.limit(count).where("name","!=","default"));
     }
     
     this.elementsString = '';

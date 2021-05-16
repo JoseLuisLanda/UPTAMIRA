@@ -18,5 +18,9 @@ html, body {
 }
 .containerHalf{
   border-radius: 10px;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.5) !important;
   }
+  .container85{
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.85) !important;
+    }
