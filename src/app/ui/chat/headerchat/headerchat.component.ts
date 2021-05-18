@@ -9,7 +9,7 @@ import { ElementId } from 'src/app/core/collections/element';
 })
 export class HeaderchatComponent implements OnInit {
 
-  @Input() navbar: ElementId = {navBarItems:[{name:"Grupos"},{name:"Usuarios"}],name:"default"} as ElementId;
+  @Input() navbar: ElementId = {navBarItems:[{name:"Historial"},{name:"Archivados"}],name:"default"} as ElementId;
   @Output() selectedItem: EventEmitter<ElementId> = new EventEmitter<ElementId>();
   constructor() { }
 

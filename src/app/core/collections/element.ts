@@ -37,6 +37,8 @@ export interface Elemento {
     navBarItems?:ElementId[];
     template?:ElementId;
     users?:ElementId[];
+    noCtrl?: string;
+    
 }
 
 export interface ElementId extends Elemento { uid: string; }

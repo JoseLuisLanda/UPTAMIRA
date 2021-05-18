@@ -15,18 +15,28 @@ export class RegisterComponent implements OnInit {
   recordarme = false;
   ruta = 'usuario';
   passwordConfirm = '';
+  roles = [
+    {id: 1, name: "Visitante/Aspirante"},
+    {id: 2, name: "Administrativo"},
+    {id: 3, name: "Ingenieria"},
+    {id: 4, name: "Licenciatura"},
+    {id: 5, name: "Maestría"}
+  ];
   constructor(
     private authLogin: AuthService,
     private router: Router
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.user.title = "Visitante/Aspirante";
+  }
 
   async onSubmit(form: NgForm): Promise<void> {
     if (form.invalid) {
       return;
     }
-    try {
+    console.log("forma: "+JSON.stringify(form.value));
+    /*try {
       if (this.user.password !== this.passwordConfirm) {
         return;
       }
@@ -36,7 +46,7 @@ export class RegisterComponent implements OnInit {
       }
     } catch (error) {
       console.log(error);
-    }
+    }*/
   }
 
   private checkUserIsVerified(user: UserModel): void {

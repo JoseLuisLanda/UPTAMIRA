@@ -70,10 +70,6 @@ export class ElementaddComponent implements OnInit, OnChanges {
     this.formElement.pais !== undefined ? this.addTextInputOp('pais', this.formElement.pais != null ? this.formElement.pais : "") : null;
     this.formElement.genero !== undefined ? this.addTextInputOp('genero', this.formElement.genero != null ? this.formElement.genero : "") : null;
     this.formElement.dateBirth !== undefined ? this.addTextInputOp('dateBirth', this.formElement.dateBirth != null ? this.formElement.dateBirth : "") : null;
-    this.formElement.facebook !== undefined ? this.addTextInputOp('facebook', this.formElement.facebook != null ? this.formElement.facebook : "") : null;
-    this.formElement.linkedin !== undefined ? this.addTextInputOp('linkedin', this.formElement.linkedin != null ? this.formElement.linkedin : "") : null;
-    this.formElement.twitter !== undefined ? this.addTextInputOp('twitter', this.formElement.twitter != null ? this.formElement.twitter : "") : null;
-    this.formElement.github !== undefined ? this.addTextInputOp('github', this.formElement.github != null ? this.formElement.github : "") : null;
     this.formElement.description !== undefined ? this.addTextInput('description',
       this.formElement.description != null ? this.formElement.description : "") : null;
    // this.item.status !== undefined ? this.agregarStatus() : null;

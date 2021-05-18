@@ -1,41 +1,70 @@
 <div class="limiter animated fadeInDown">
-  <div class="container-login100">
-    <div style="padding-left: 20px;padding-right: 20px; padding: 1vw;" class="wrap-login100">
+  <div class="container-login100" style="padding-top: 100px;">
+    <div style="padding-left: 20px;padding-right: 20px; padding: 1vw;" class="wrap-login200 containerHalf">
       <form (ngSubmit)="onSubmit( f )" #f="ngForm" class="login100-form validate-form flex-sb flex-w">
-        <span class="login100-form-title p-b-20">
-            Crear nueva cuenta
+        <span class="login100-form-title p-b-20 text-white mt-3">
+            Regístrate
         </span>
+
+        <div class="row mt-3 mb-4" style="padding-left: 20px; padding-right: 20px;">
+          <div class="containerHalf col-md-6 col-sm-12">
+            <div class="form-group mt-3">
+              <label class="label text-white mb-2">Carrera/Ocupación</label>
+              <select class="form-select form-select-md mb-3" name="title" [(ngModel)]="user.title" aria-label=".form-select-lg example">
+                
+                <option *ngFor="let rol of roles" [ngValue]="rol.name">{{rol.name}}</option>
+              </select>
+            </div>
         <span *ngIf="f.submitted && f.controls['displayName'].errors" class="text-danger animated fadeIn">
           El nombre es obligatorio, al menos 5 caracteres.
         </span>
-        <div class="wrap-input100 m-b-10">
-          <input [(ngModel)]="user.displayName" required minlength="5" name="displayName" class="input100" type="text" placeholder="Nick">
+        <div class="form-group mt-3">
+          <label class="label text-white mb-2">Nombre</label>
+          <input [(ngModel)]="user.displayName" required minlength="5" name="displayName" class="form-control" type="text" placeholder="Nombre">
           <span class="focus-input100"></span>
         </div>
+        
+        <div class="form-group mt-3" *ngIf="user.title != 'Visitante/Aspirante'">
+
+        <span *ngIf="f.submitted && f.controls['noCtrl'].errors" class="text-danger animated fadeIn">
+          Número de control o en su defecto inserta 0000.
+        </span>
+          <label class="label text-white mb-2">Número de Control</label>
+          <input [(ngModel)]="user.noCtrl" required minlength="4" name="noCtrl" class="form-control" type="text" placeholder="Núm. de Control">
+          <span class="focus-input100"></span>
+        </div>
+       
+     
+      </div>
+      <div class="containerHalf col-md-6 col-sm-12">
         <span *ngIf="f.submitted && f.controls['email'].errors" class="text-danger animated fadeIn">
           Un correo válido es obligatorio.
         </span>
-        <div class="wrap-input100 m-b-10">
-          <input [(ngModel)]="user.email" name="email" maxlength="30" type="email" required class="input100" name="email" placeholder="Correo electrónico" email>
+        <div class="form-group  mt-3">
+          <label class="label text-white mb-2">Correo</label>
+          <input [(ngModel)]="user.email" name="email" maxlength="30" type="email" required class="form-control" name="email" placeholder="Correo electrónico" email>
           <span class="focus-input100"></span>
         </div>
+
         <span *ngIf="f.submitted && f.controls['pass'].errors" class="text-danger animated fadeIn">
           El password es obligatorio, al menos 5 caracteres.
         </span>
         <span *ngIf="f.submitted && user.password !== passwordConfirm" class="text-danger animated fadeIn">
           La contraseñas no coinciden
         </span>
-        <div class="wrap-input100 m-b-10" data-validate="Password is required">
-          <input [(ngModel)]="user.password" required minlength="6" class="input100" type="password" name="pass" placeholder="Contraseña">
+        <div class="form-group mt-3" data-validate="Password is required">
+          <label class="label text-white mb-2">Contraseña</label>
+          <input [(ngModel)]="user.password" required minlength="6" class="form-control" type="password" name="pass" placeholder="Contraseña">
           <span class="focus-input100"></span>
         </div>
 
-        <div class="wrap-input100 m-b-10" data-validate="Password is required">
+        <div class="form-group  mt-3" data-validate="Password is required">
+          <label class="label text-white mb-2">Repite Contraseña</label>
           <input
             [(ngModel)]="passwordConfirm"
             required
             minlength="6"
-            class="input100"
+            class="form-control"
             type="password"
             name="pass"
             placeholder="Confirmar contraseña"
@@ -43,7 +72,7 @@
           <span class="focus-input100"></span>
         </div>
 
-        <div class="container-login100-form-btn m-t-10">
+        <div class="container-login100-form-btn mt-3">
           <button class="login100-form-btn" type="submit">
             Crear cuenta
           </button>
@@ -61,6 +90,9 @@
             </a>
           </p>
         </div>
+      </div>
+</div>
+
       </form>
     </div>
   </div>
