@@ -129,23 +129,18 @@ export class AuthService extends RoleValidator{
   }
 
   private updateUserData(user: any) {
-    const userRef: AngularFirestoreDocument<UserModel> = this.db.doc(
+    const userRef: AngularFirestoreDocument<ElementId> = this.db.doc(
       `usuario/${user.uid}`
     );
-
-    const data: UserModel = {
-      uid: user.uid,
-      email: user.email,
-      emailVerified: user.emailVerified,
-      displayName: user.displayName,
-      normalizedName: user.displayName.toLower(),
-      photoURL: user.photoURL ? user.photoURL : 'assets/photo',
-      refreshToken: user.refreshToken ? user.refreshToken : '',
-      organization: user.email!.split('@')[1],
-      type: user.email!.split('@')[1] === "gmail.com" ? "user":"admin",
-      url:`usuario/${user.uid}`
-    };
-    console.log("storing: ", JSON.stringify(data));
-    return userRef.set(data, { merge: true });
+    user.password = "";
+    user.normalizedName = user.displayName.toLowerCase();
+    user.photoURL = user.photoURL ? user.photoURL : 'assets/photo';
+    user.refreshToken = user.refreshToken ? user.refreshToken : '';
+    user.organization = user.email!.split('@')[1];
+    user.type = user.email!.split('@')[1] === "upt.edu.mx" ? "interno":"user";
+    user.url = `usuario/${user.uid}`;
+  
+    //console.log("storing: ", JSON.stringify(user));
+    return userRef.set(user, { merge: true });
   }
 }

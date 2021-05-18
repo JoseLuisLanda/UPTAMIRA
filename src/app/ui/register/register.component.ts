@@ -35,8 +35,8 @@ export class RegisterComponent implements OnInit {
     if (form.invalid) {
       return;
     }
-    console.log("forma: "+JSON.stringify(form.value));
-    /*try {
+    //console.log("forma: "+JSON.stringify(form.value));
+    try {
       if (this.user.password !== this.passwordConfirm) {
         return;
       }
@@ -46,7 +46,7 @@ export class RegisterComponent implements OnInit {
       }
     } catch (error) {
       console.log(error);
-    }*/
+    }
   }
 
   private checkUserIsVerified(user: UserModel): void {

@@ -38,6 +38,7 @@ export interface Elemento {
     template?:ElementId;
     users?:ElementId[];
     noCtrl?: string;
+    organization?:string;
     
 }
 
