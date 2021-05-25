@@ -15,6 +15,8 @@ export class RegisterComponent implements OnInit {
   recordarme = false;
   ruta = 'usuario';
   passwordConfirm = '';
+  logged = false;
+  verified = false;
   roles = [
     {id: 1, name: "Visitante/Aspirante"},
     {id: 2, name: "Administrativo"},
@@ -25,9 +27,12 @@ export class RegisterComponent implements OnInit {
   constructor(
     private authLogin: AuthService,
     private router: Router
-  ) {}
+  ) {
+    this.checkUserIsVerified();
+  }
 
   ngOnInit(): void {
+    
     this.user.title = "Visitante/Aspirante";
   }
 
@@ -49,11 +54,24 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  private checkUserIsVerified(user: UserModel): void {
-    if (!user.emailVerified) {
-      this.router.navigate(['/verification']);
+  private async checkUserIsVerified(): Promise<void> {
+    const userDta = await this.authLogin.isAuthenticated();
+    if (userDta && userDta.emailVerified) {
+      this.logged = true;
+      this.verified = true;
+    } else if (userDta) {
+      this.logged = true;
     } else {
-      this.router.navigate(['/home']);
+      this.logged = false;
+      this.verified = false;
+    }
+    if(userDta?.uid !== undefined){
+      
+      //this.usuario = true;
+      //this.getUserProfile(userDta?.uid)
+    }else{
+      //this.usuario = false;
+      //console.log("No user"+JSON.stringify(userDta))
     }
   }
 

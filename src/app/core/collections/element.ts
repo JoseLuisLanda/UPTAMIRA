@@ -39,7 +39,7 @@ export interface Elemento {
     users?:ElementId[];
     noCtrl?: string;
     organization?:string;
-    
+    phone?:string;
 }
 
 export interface ElementId extends Elemento { uid: string; }

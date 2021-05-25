@@ -34,9 +34,9 @@ export class HeaderComponent implements OnInit {
   async checkUserIsVerified() {
     const userDta = await this.authSvc.isAuthenticated();
     if (userDta && userDta.emailVerified) {
-      this.router.navigate(['/elements']);
-    } else if (userDta) {
       this.router.navigate(['/home']);
+    } else if (userDta) {
+      this.router.navigate(['/register']);
     } else {
       this.router.navigate(['/login']);
     }

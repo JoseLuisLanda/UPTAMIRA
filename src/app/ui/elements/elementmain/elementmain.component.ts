@@ -17,6 +17,9 @@ export class ElementmainComponent implements OnInit {
   {name:"Usuarios",normalizedName:"usuario"},
   {name:"Eventos",normalizedName:"evento"},{name:"Cursos",normalizedName:"curso"},
   {name:"Anuncios",normalizedName:"anuncio"}]} as ElementId;
+  searchValue:string = "";
+  searchAgainValue:string = "";
+
   constructor(private firebaseSvc: FirestoreService) { }
 
   ngOnInit() {
@@ -40,4 +43,15 @@ export class ElementmainComponent implements OnInit {
   this.element = elem.normalizedName;
 
 }
+searchElement(val:string){
+  //console.log("setting value to search: "+val);
+  this.searchValue = val;
+
+}
+searchAgain(val:string){
+  //console.log("SEARCH AGAIN: "+val);
+  this.searchAgainValue = val;
+
+}
+
 }

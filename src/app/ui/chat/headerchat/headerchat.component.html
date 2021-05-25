@@ -14,9 +14,15 @@
             <button class="btn btn-warning btn-block" (click)="selectedElement()">Nuevo</button>
           </li>
         </ul>
-        <form class="d-flex aling-content-right">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
+        <form (ngSubmit)="onSubmit( t )" #t="ngForm" class="d-flex aling-content-right">
+          <div>
+            <input [(ngModel)]="keyToSearch" type="search" minlength="3" placeholder="Buscar" name="keyToSearch" id="keyToSearch" class="form-control me-2" (input)="onSearchChange($event.target.value)">
+          <span *ngIf="t.submitted && t.controls['keyToSearch'].errors" class="text-danger text-sm animated fadeIn">
+            Búsqueda mínima de 3 caracteres.
+          </span>
+          </div>
+          
+          <button class="btn btn-warning text-white" type="submit">Buscar</button>
         </form>
       </div>
     </div>
