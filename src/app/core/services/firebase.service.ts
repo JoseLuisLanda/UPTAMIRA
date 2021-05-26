@@ -64,9 +64,11 @@ export class FirestoreService {
       this.itemsCollection = this.db.collection<any>(nameCollection, (ref) =>
       ref.where(keySearch, '==',keyValue));
     }else{
-      console.log("GETTING COLLECTION: "+nameCollection);
+      console.log("GETTING COLLECTION: "+nameCollection+" id user: "+localStorage.getItem("userId"));
+      let userId:string = localStorage.getItem("userId") !== null ? localStorage.getItem("userId"):"";
       this.itemsCollection = this.db.collection<any>(nameCollection, (ref) =>
-      ref.limit(count).where("name","!=","default"));
+      ref.limit(count).where("owner","==",userId));
+      
     }
     
     this.elementsString = '';

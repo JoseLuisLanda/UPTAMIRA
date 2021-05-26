@@ -25,16 +25,17 @@ export class ElementlistComponent implements OnInit, OnChanges {
     {
       //this.items = this.items.filter(x => x.normalizedName === this.searchValue);
       this.tempItems = this.items.filter(x => x.normalizedName.includes(this.searchValue));
-     console.log("filtrando; ",JSON.stringify(this.tempItems));
+     //console.log("filtrando; ",JSON.stringify(this.tempItems));
       //this.items = this.tempItems;
       this.searchAgainValue = "";
     }else if(this.searchAgainValue !== ""){
-      console.log("BUSCAR DE NUEVO POR; "+this.searchAgainValue);
+      //console.log("BUSCAR DE NUEVO POR; "+this.searchAgainValue);
       this.getElements("normalizedName",this.searchAgainValue);
       
 
     }else{
-      console.log("Reset; "+this.searchAgainValue);
+      this.getElements();
+      //console.log("Reset; "+this.searchAgainValue);
       this.tempItems = [] as ElementId[];
       this.searchAgainValue = "";
       this.searchValue = "";
