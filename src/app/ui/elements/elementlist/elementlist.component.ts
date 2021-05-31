@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, Output, SimpleChanges, EventEmitter } from '@angular/core';
 import { ElementId } from 'src/app/core/collections/element';
 import { FirestoreService } from 'src/app/core/services/firebase.service';
 
@@ -14,8 +14,15 @@ export class ElementlistComponent implements OnInit, OnChanges {
   tempItems:ElementId[] = [] as ElementId[];
   @Input() searchValue:string = "";
   @Input() searchAgainValue:string = "";
+  @Output() selectedGroup: EventEmitter<string> = new EventEmitter<string>();
+  currentGroup:ElementId;
+  
   constructor(private fsService: FirestoreService,) { 
-    this.getElements();
+    //this.currentGroup=null;
+    //this.getElements();
+    //if(this.currentGroup === null ||this.currentGroup === undefined)
+      //this.getElements();
+
   }
   ngOnChanges(changes: SimpleChanges): void {
     
@@ -30,27 +37,49 @@ export class ElementlistComponent implements OnInit, OnChanges {
       this.searchAgainValue = "";
     }else if(this.searchAgainValue !== ""){
       //console.log("BUSCAR DE NUEVO POR; "+this.searchAgainValue);
+      if(this.currentGroup !== null && this.currentGroup !== undefined)
       this.getElements("normalizedName",this.searchAgainValue);
       
 
     }else{
+      //if(this.currentGroup !== null &&this.currentGroup !== undefined)
       this.getElements();
-      //console.log("Reset; "+this.searchAgainValue);
+      console.log("Reset; "+this.searchAgainValue);
       this.tempItems = [] as ElementId[];
       this.searchAgainValue = "";
       this.searchValue = "";
+      
     }
+    
   }
 
   ngOnInit() {
+    this.getElements();
+    //this.currentGroup = JSON.parse(localStorage.getItem("selectedGroup"));
   }
   getElements(keySearch: string = "",keyValue:string = ""){
    
     this.fsService.getCollection(this.element, 10, keySearch, keyValue).subscribe((data) => {
       keySearch === "" ? this.items = data as ElementId[]:this.tempItems = data as ElementId[];
       this.searchAgainValue = "";
+      console.log("GETTING elementList: ");
+      if(this.element === "grupo" && this.items.length > 0 && (this.currentGroup === null ||this.currentGroup === undefined))
+      {
+        console.log("IS GROUPLIST: "+ JSON.stringify(this.items[0].name));
+       
+         this.setCurrentGroup(this.items[0]);
+      }
+      //this.currentGroup = JSON.parse(localStorage.getItem("selectedGroup"));
       //console.log("elementos: "+JSON.stringify(this.items))
       //this.countMyEvents();
     });
+  }
+  setCurrentGroup(group:ElementId){
+    console.log("SETTING GROUP: "+ JSON.stringify(group));
+        localStorage.setItem("selectedGroup",JSON.stringify(group));
+        this.currentGroup = group;
+        this.selectedGroup.emit(JSON.stringify(group));
+        
+        
   }
 }

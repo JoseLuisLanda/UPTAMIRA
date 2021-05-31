@@ -4,7 +4,7 @@
   </nav>
   <div class="container col-12" style="padding-top: 200px;padding-bottom:150px;z-index: 997;">
    
-    <app-elementlist [searchValue]="searchValue" [searchAgainValue]="searchAgainValue" [item]="currentItem" [element]="element" ></app-elementlist>
+    <app-elementlist [searchValue]="searchValue" (selectedGroup)="setSelectedGroup($event)" [searchAgainValue]="searchAgainValue" [item]="currentItem" [element]="element" ></app-elementlist>
     </div>
 
 

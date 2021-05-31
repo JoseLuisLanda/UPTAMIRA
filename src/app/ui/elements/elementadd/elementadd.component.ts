@@ -44,6 +44,7 @@ export class ElementaddComponent implements OnInit, OnChanges {
   }
   crearFormulario() {
     this.formElement = this.item;
+    
     if(this.item!== undefined)
     {
     this.formReset();
@@ -146,24 +147,35 @@ export class ElementaddComponent implements OnInit, OnChanges {
     //this.item = this.forma.value;
        console.log("FORMELEMENT: "+JSON.stringify(this.formElement));
        console.log("ITEM: "+JSON.stringify(this.item));
-
+       let userId:string = localStorage.getItem("userId") !== null ? localStorage.getItem("userId"):"";
        //ADDING NORMALIZED NAMES
        this.formElement.displayName !== undefined ? this.item.normalizedName = this.formElement.displayName.toLowerCase() : null;
        this.formElement.name !== undefined ? this.item.normalizedName = this.formElement.name.toLowerCase() : null;
        //AADDING OWNER
-       this.item.owner = localStorage.getItem("userId");
+       this.item.owner = userId;
        //adding defaults
        if(this.element === "grupo"){
          this.item.navBarItems = [{name:"Grupos", normalizedName:"grupo",url:`grupo/${this.item.uid}`},{name:"Usuarios", normalizedName:"usuario"}] as ElementId[];
-         this.item.users = [{id:localStorage.getItem("userId"),name:localStorage.getItem("userName")}] as ElementId[];
+         this.item.users = this.item.users === undefined || this.item.users === null ? [] : this.item.users;
+         this.item.users.push(userId);
+       }else{
+        let grupo:string = localStorage.getItem("selectedGroup") === null 
+             || localStorage.getItem("selectedGroup") === undefined ? "{}": localStorage.getItem("selectedGroup");
+         let currentGroup = JSON.parse(grupo )as ElementId;
+         this.item.group = currentGroup.id;
        }
+       //this.item.date = this.afsService.serverDate().toString();
+       this.item.dateCreated = this.afsService.getTimeStamp();
     this.afsService.set(this.item.url,this.item).then(res =>{
         console.log("EDITADO: ",JSON.stringify(res))
       }).catch(error=>{
         console.log("ERROR DE EDICION: ");
       }).finally(()=>{
-        (<HTMLInputElement> document.getElementById("dismissModal")).click(); });
-      
+        (<HTMLInputElement> document.getElementById("dismissModal")).click(); 
+        this.item = {} as ElementId;
+        this.formReset();
+      });
+        
 
     
   }

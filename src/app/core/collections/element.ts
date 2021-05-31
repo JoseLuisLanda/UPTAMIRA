@@ -7,7 +7,7 @@ export interface Elemento {
     photoURL?: string;
     role?: string;
     duration?: number;
-    dateCreated?: Date;
+    dateCreated?: any;//Date;
     dateModified?: Date;
     title?: string;
     description?: string;
@@ -33,13 +33,14 @@ export interface Elemento {
     linkedin?: string;
     twitter?: string;
     github?: string;
-    date?: firebase.default.firestore.Timestamp;
+    date?: any;//firebase.default.firestore.Timestamp;
     navBarItems?:ElementId[];
     template?:ElementId;
-    users?:ElementId[];
+    users?:string[];
     noCtrl?: string;
     organization?:string;
     phone?:string;
+    group?:string;
 }
 
 export interface ElementId extends Elemento { uid: string; }

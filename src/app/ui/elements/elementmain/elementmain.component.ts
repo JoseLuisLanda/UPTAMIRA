@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges,EventEmitter } from '@angular/core';
 import { ElementId } from 'src/app/core/collections/element';
 import { FirestoreService } from 'src/app/core/services/firebase.service';
 
@@ -7,23 +7,30 @@ import { FirestoreService } from 'src/app/core/services/firebase.service';
   templateUrl: './elementmain.component.html',
   styleUrls: ['./elementmain.component.css']
 })
-export class ElementmainComponent implements OnInit {
+export class ElementmainComponent implements OnInit, OnChanges {
   currentItem:ElementId = {name:"", description:""} as ElementId;
   element:string = "grupo";
   userTemplate: ElementId = {displayName:"",email:""} as ElementId;
   defaultTemplate: ElementId = {name:"", description:""} as ElementId;
   eventTemplate: ElementId = {name:"", description:""} as ElementId;
   groupElement: ElementId = {navBarItems:[{name:"Grupos",normalizedName:"grupo"},
-  {name:"Usuarios",normalizedName:"usuario"},
-  {name:"Eventos",normalizedName:"evento"},{name:"Cursos",normalizedName:"curso"},
-  {name:"Anuncios",normalizedName:"anuncio"}]} as ElementId;
+  {name:"Usuarios",normalizedName:"usuario"},{name:"Otros",normalizedName:"otros"}]} as ElementId;
   searchValue:string = "";
   searchAgainValue:string = "";
 
   constructor(private firebaseSvc: FirestoreService) { }
+  ngOnChanges(changes: SimpleChanges): void {
+    if(localStorage.getItem("selectedGroup") !== null)
+    this.groupElement = JSON.parse(localStorage.getItem("selectedGroup"));
+
+    //console.log("groupElement: ",this.groupElement);
+  }
 
   ngOnInit() {
+    if(localStorage.getItem("selectedGroup") !== null)
+       this.groupElement = JSON.parse(localStorage.getItem("selectedGroup"));
   }
+ 
   newItem(){
     this.firebaseSvc.getCollection(this.element,10,"name","default").subscribe((data) => {
       //console.log("GETTING DATA"+ JSON.stringify(data));
@@ -53,5 +60,8 @@ searchAgain(val:string){
   this.searchAgainValue = val;
 
 }
-
+setSelectedGroup(selectedGroup:string){
+  //console.log("groupSelected: "+selectedGroup);
+  this.groupElement = JSON.parse(selectedGroup);
+}
 }

@@ -6,6 +6,7 @@ import {
   AngularFirestoreCollection,
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { ElementId } from '../collections/element';
 @Injectable({
   providedIn: 'root',
 })
@@ -64,11 +65,15 @@ export class FirestoreService {
       this.itemsCollection = this.db.collection<any>(nameCollection, (ref) =>
       ref.where(keySearch, '==',keyValue));
     }else{
-      console.log("GETTING COLLECTION: "+nameCollection+" id user: "+localStorage.getItem("userId"));
+      let selectedGroup: ElementId = localStorage.getItem("selectedGroup") !== null ? 
+               JSON.parse(localStorage.getItem("selectedGroup")) as ElementId:{} as ElementId;
       let userId:string = localStorage.getItem("userId") !== null ? localStorage.getItem("userId"):"";
+      let groupId: string = selectedGroup.id !== undefined && selectedGroup.id !== null ? selectedGroup.id:"";
+
+      //console.log("GETTING COLLECTION: "+nameCollection+" id user: "+userId+" groupId: "+groupId);
       this.itemsCollection = this.db.collection<any>(nameCollection, (ref) =>
-      ref.limit(count).where("owner","==",userId));
-      
+      nameCollection ==="grupo" ? ref.limit(count).where("users", 'array-contains',userId):
+      ref.limit(count).where("group", '==',groupId));
     }
     
     this.elementsString = '';

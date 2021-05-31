@@ -29,6 +29,9 @@ export class AfsService {
 createId(){
   return this.angularfs.createId();
 }
+serverDate(){
+  return firebase.default.database.ServerValue.TIMESTAMP;
+}
 /// Get Data
 
 doc$<T>(ref: DocPredicate<T>): Observable<T>{
@@ -57,8 +60,7 @@ colWithIds$<T>(ref: CollectionPredicate<T>, queryFn?:QueryFn<firebase.default.fi
   }));
 }
 getTimeStamp(){
-  console.log('getting timestamp: ');
- // return firebase.firestore.FieldValue.serverTimestamp()
+ return firebase.default.firestore.FieldValue.serverTimestamp()
 }
 set<T>(ref: DocPredicate<T>, data: any){
   //console.log('Setting dates: ' +this.getTimeStamp);

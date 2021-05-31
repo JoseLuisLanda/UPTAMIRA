@@ -1,6 +1,7 @@
 <div *ngIf="tempItems.length == 0" class="row">
 <div *ngFor="let item of items" class="col-sm-6 col-lg-4">
-  <app-elementcard class="col-sm-6 col-lg-4" [item]="item"></app-elementcard>
+  <app-elementcard *ngIf="currentGroup === item" class="col-sm-6 col-lg-4" (elementSelected) = "setCurrentGroup($event)" [selected]="true" [item]="item"></app-elementcard>
+  <app-elementcard *ngIf="currentGroup !== item" class="col-sm-6 col-lg-4" (elementSelected) = "setCurrentGroup($event)" [selected]="false" [item]="item"></app-elementcard>
 </div>
 
 </div>
