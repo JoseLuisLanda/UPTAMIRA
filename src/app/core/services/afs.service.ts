@@ -42,7 +42,7 @@ doc$<T>(ref: DocPredicate<T>): Observable<T>{
 }
 
 col$<T>(ref: CollectionPredicate<T>, queryFn?: QueryFn<firebase.default.firestore.DocumentData> | undefined): Observable<T[]>{
-
+  //queryFn.prototype.
   return this.col(ref, queryFn).snapshotChanges().pipe(map(docs => {
 return docs.map(a => a.payload.doc.data()) as T[]
   

@@ -1,11 +1,11 @@
-<div class="containerHalf d-flex " [ngClass]="{'justify-content-start':!mine, 'justify-content-end':mine}">
+<div class="containerHalf d-flex " [ngClass]="{'justify-content-start':!chat.mine, 'justify-content-end':chat.mine}">
   <div class="card border-primary col-11 col-sm-10 col-md-8 ">
-    <div class="card-header"><h5 class="text-white">Hola que tal</h5></div>
-    <div class="card-body text-primary">
-      <p class="card-title text-white">Resultados similares:</p><br/>
-<button type="button" class="btn btn-primary btn-sm">Becas</button>
-<button type="button" class="btn btn-primary btn-sm">Inscripciones</button>
-<button type="button" class="btn btn-primary btn-sm">Anuncios</button>
+    <div class="card-header"><h5 class="text-white">{{chat.title}}</h5></div>
+    <div *ngIf="!chat.mine" class="card-body text-primary">
+      <!--p class="card-title text-white">Resultados similares:</p--><br/>
+         <button type="button" class="btn btn-primary btn-sm">Becas</button>
+         <button type="button" class="btn btn-primary btn-sm">Inscripciones</button>
+         <button type="button" class="btn btn-primary btn-sm">Anuncios</button>
     </div>
   </div>
 </div>

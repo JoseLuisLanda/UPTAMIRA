@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ElementId } from 'src/app/core/collections/element';
 
 @Component({
   selector: 'app-card',
@@ -6,7 +7,8 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./card.component.css']
 })
 export class CardComponent implements OnInit {
-  @Input() mine: boolean = false;
+  @Input() chat: ElementId = {} as ElementId;
+  mine = false;
   constructor() { }
 
   ngOnInit(): void {

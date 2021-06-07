@@ -41,6 +41,7 @@ export interface Elemento {
     organization?:string;
     phone?:string;
     group?:string;
+    mine?: boolean;
 }
 
 export interface ElementId extends Elemento { uid: string; }

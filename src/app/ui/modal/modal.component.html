@@ -9,8 +9,8 @@
       <div class="modal-body">
         <app-elementadd *ngIf="!edit" [item]="item" [element]="element"></app-elementadd>
         <div *ngIf="edit" class="d-flex form-inline">
-        <input type="text" class="form-control"/>
-        <button class="btn btn-primary align-content-end">Enviar</button>
+        <input #valueText type="text" (keyup.enter)="saveMessage(valueText.value)" class="form-control"/>
+        <button class="btn btn-primary align-content-end" (click)="saveMessage(valueText.value)">Enviar</button>
       </div>
       </div>
       <div class="modal-footer">
