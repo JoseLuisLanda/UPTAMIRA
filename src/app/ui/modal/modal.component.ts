@@ -19,10 +19,10 @@ export class ModalComponent implements OnInit, OnChanges {
 
   ngOnInit() {
   }
-  saveMessage(valueText: string){
+  saveMessage(valueText: ElementId){
 
-    console.log("Mensaje a guardar: "+valueText);
-    this.valueInputText.emit(valueText);
+    console.log("Mensaje a guardar: "+JSON.stringify(valueText));
+    //this.valueInputText.emit(valueText);
     //(<HTMLInputElement> document.getElementById("valueText")).value = ""; 
     (<HTMLInputElement> document.getElementById("dismissModal")).click(); 
 

@@ -58,22 +58,31 @@ export class FirestoreService {
     if(collection !== "" && value !== "")
     {
       this.itemsCollection = this.db.collection<any>(nameCollection, (ref) =>
-      ref.where(collection, 'array-contains',value));
+      ref.where(collection, 'array-contains',value));//.orderBy("dateCreated"));
      
     }else if(keySearch !=="" && keyValue !== ""){
       //console.log("CALLING WHERE: "+collection + value)
       this.itemsCollection = this.db.collection<any>(nameCollection, (ref) =>
-      ref.where(keySearch, '==',keyValue));
+      ref.where(keySearch, '==',keyValue));//.orderBy("dateCreated"));
     }else{
       let selectedGroup: ElementId = localStorage.getItem("selectedGroup") !== null ? 
                JSON.parse(localStorage.getItem("selectedGroup")) as ElementId:{} as ElementId;
       let userId:string = localStorage.getItem("userId") !== null ? localStorage.getItem("userId"):"";
       let groupId: string = selectedGroup.id !== undefined && selectedGroup.id !== null ? selectedGroup.id:"";
 
-      //console.log("GETTING COLLECTION: "+nameCollection+" id user: "+userId+" groupId: "+groupId);
-      this.itemsCollection = this.db.collection<any>(nameCollection, (ref) =>
-      nameCollection ==="grupo" ? ref.limit(count).where("users", 'array-contains',userId):
-      ref.limit(count).where("group", '==',groupId));
+      
+      if(nameCollection.includes("chats",0))
+      {
+        this.itemsCollection = this.db.collection<any>(nameCollection, (ref) =>
+        ref.limit(count).orderBy("dateCreated"));
+        console.log("GETTING CHATS: "+nameCollection+" id user: "+userId+" groupId: "+groupId);
+      }else{
+        this.itemsCollection = this.db.collection<any>(nameCollection, (ref) =>
+        nameCollection ==="grupo" ? ref.limit(count).where("users", 'array-contains',userId):
+        ref.limit(count).where("group", '==',groupId));//.orderBy("dateCreated"));
+        console.log("GETTING GROUP COLLECTION: "+nameCollection+" id user: "+userId+" groupId: "+groupId);
+      }
+   
     }
     
     this.elementsString = '';

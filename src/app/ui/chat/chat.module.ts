@@ -6,6 +6,7 @@ import { CardlistComponent } from './cardlist/cardlist.component';
 import { SearchbarComponent } from './searchbar/searchbar.component';
 import { HeaderchatComponent } from './headerchat/headerchat.component';
 import { Sharedmodule } from 'src/app/shared/shared.module';
+import { ElementsearchComponent } from './elementsearch/elementsearch.component';
 
 
 

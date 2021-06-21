@@ -8,10 +8,11 @@
       </div>
       <div class="modal-body">
         <app-elementadd *ngIf="!edit" [item]="item" [element]="element"></app-elementadd>
-        <div *ngIf="edit" class="d-flex form-inline">
+        <!--div *ngIf="edit" class="d-flex form-inline">
         <input #valueText type="text" (keyup.enter)="saveMessage(valueText.value)" class="form-control"/>
         <button class="btn btn-primary align-content-end" (click)="saveMessage(valueText.value)">Enviar</button>
-      </div>
+      </div-->
+      <app-elementsearch *ngIf="edit" [item]="item" (searchParams)="saveMessage($event)"></app-elementsearch>
       </div>
       <div class="modal-footer">
         <button type="button" id="dismissModal" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

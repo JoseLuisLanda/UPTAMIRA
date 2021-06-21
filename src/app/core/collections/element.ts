@@ -37,11 +37,13 @@ export interface Elemento {
     navBarItems?:ElementId[];
     template?:ElementId;
     users?:string[];
+    options?:ElementId[];
     noCtrl?: string;
     organization?:string;
     phone?:string;
     group?:string;
     mine?: boolean;
+    value?: string;
 }
 
 export interface ElementId extends Elemento { uid: string; }

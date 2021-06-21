@@ -14,7 +14,7 @@ import { Sharedmodule } from 'src/app/shared/shared.module';
   imports: [
     CommonModule,ElementsRoutingModule,ReactiveFormsModule, FormsModule, Sharedmodule
   ],
-  declarations: [ElementlistComponent, ElementmainComponent,NgDropFilesDirective,
-    UploadimageComponent, ElementcardComponent]
+  declarations: [ElementlistComponent, ElementmainComponent,
+     ElementcardComponent]
 })
 export class ElementsModule { }

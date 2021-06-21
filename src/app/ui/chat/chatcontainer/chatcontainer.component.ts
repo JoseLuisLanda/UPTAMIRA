@@ -13,27 +13,31 @@ users = [{},{},{},{}];
 element="Chatea Conmigo";
 item: ElementId = {} as ElementId;
 mainItem: ElementId = {} as ElementId;
+searchItem: ElementId ={options:[{name:"Eventos",value:"evento"},{name:"Anuncios",value:"anuncio"}]} as ElementId;
   private mine = true;
   constructor(private afsService : AfsService, private fsService: FirestoreService) { }
 
   ngOnInit(): void {
     let userId:string = localStorage.getItem("userId") !== null ? localStorage.getItem("userId"):"";
     console.log("GETTING chat: "+`chats/${userId}`);
-    this.afsService.doc$(`chats/${userId}`).subscribe((data) => {
-      if(data !== undefined)
-      this.mainItem =   data as ElementId;
-      console.log("GETTING chat: "+JSON.stringify(this.item));
+    if(userId !== ""){
+      this.afsService.doc$(`chats/${userId}`).subscribe((data) => {
+        if(data !== undefined)
+        this.mainItem =   data as ElementId;
+        console.log("GETTING chat: "+JSON.stringify(this.item));
+      
+      });
+      this.fsService.getCollection(`chats/${userId}/mensajes`, 7).subscribe((data) => {
+        if(data !== undefined)
+        this.users =   data as ElementId[];
+        //console.log("GETTING chat messages: "+JSON.stringify(this.users));
+      });
+    }else{
+      //TODO: userid is not available
+    }
     
-    });
-    this.afsService.col$(`chats/${userId}/mensajes`).subscribe((data) => {
-      if(data !== undefined)
-      this.users =   data as ElementId[];
-      console.log("GETTING chat messages: "+JSON.stringify(this.users));
-    
-    });
-    //this.fsService.getCollection(this.element, 10, keySearch, keyValue).subscribe((data) => {
-    //});
-    console.log("GETTING: "+this.element, 10, "id", userId);
+ 
+    //console.log("GETTING: "+this.element, 10, "id", userId);
     //this.afsService.doc$()
   }
   saveMessage(valueText: string){
