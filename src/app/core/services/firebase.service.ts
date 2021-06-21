@@ -76,7 +76,11 @@ export class FirestoreService {
         this.itemsCollection = this.db.collection<any>(nameCollection, (ref) =>
         ref.limit(count).orderBy("dateCreated"));
         console.log("GETTING CHATS: "+nameCollection+" id user: "+userId+" groupId: "+groupId);
-      }else{
+      }else if(nameCollection === "aviso" || nameCollection === "curso" || nameCollection === "evento" ){
+        this.itemsCollection = this.db.collection<any>(nameCollection, (ref) =>
+        ref.limit(count).orderBy("dateCreated"));
+      }
+      else{
         this.itemsCollection = this.db.collection<any>(nameCollection, (ref) =>
         nameCollection ==="grupo" ? ref.limit(count).where("users", 'array-contains',userId):
         ref.limit(count).where("group", '==',groupId));//.orderBy("dateCreated"));

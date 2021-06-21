@@ -11,7 +11,8 @@ export class ModalComponent implements OnInit, OnChanges {
   @Input() item: ElementId = {} as ElementId;
   @Input() element: string;
   @Input() edit: boolean = false;
-  @Output() valueInputText: EventEmitter<string> = new EventEmitter<string>();
+  @Input() detail: boolean = false;
+  @Output() valueInputText: EventEmitter<ElementId> = new EventEmitter<ElementId>();
   constructor() { }
   ngOnChanges(changes: SimpleChanges): void {
     console.log("ITEM CHANGE: "+JSON.stringify(this.item)+this.element)
@@ -21,8 +22,8 @@ export class ModalComponent implements OnInit, OnChanges {
   }
   saveMessage(valueText: ElementId){
 
-    console.log("Mensaje a guardar: "+JSON.stringify(valueText));
-    //this.valueInputText.emit(valueText);
+    //console.log("Mensaje a guardar: "+JSON.stringify(valueText));
+    this.valueInputText.emit(valueText);
     //(<HTMLInputElement> document.getElementById("valueText")).value = ""; 
     (<HTMLInputElement> document.getElementById("dismissModal")).click(); 
 

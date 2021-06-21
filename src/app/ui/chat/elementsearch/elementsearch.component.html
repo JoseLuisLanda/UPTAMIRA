@@ -6,5 +6,5 @@
     <hr class="text-white"/>
     <h5 class="text-white">Opciones de búsqueda</h5>
     <hr class="text-white"/>
-    <button *ngFor="let option of item.options" class="btn btn-primary btn-sm" (click)="saveMessage(option.name)">{{option.name}}</button>
+    <button *ngFor="let option of item.options" class="btn btn-primary btn-sm" (click)="saveMessage(option.value)">{{option.name}}</button>
   </div>

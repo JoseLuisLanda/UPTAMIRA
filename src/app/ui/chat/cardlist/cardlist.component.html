@@ -2,7 +2,7 @@
    
     
     <div class="row" *ngFor="let chat of chats; index as i; first as isFirst">
-    <app-card [chat]="chat"></app-card>
+    <app-card [chat]="chat" (selectedOption)="selectedElement($event)"></app-card>
      
     </div>
     

@@ -14,7 +14,6 @@ import { Sharedmodule } from 'src/app/shared/shared.module';
   imports: [
     CommonModule,ElementsRoutingModule,ReactiveFormsModule, FormsModule, Sharedmodule
   ],
-  declarations: [ElementlistComponent, ElementmainComponent,
-     ElementcardComponent]
+  declarations: [ElementlistComponent, ElementmainComponent]
 })
 export class ElementsModule { }

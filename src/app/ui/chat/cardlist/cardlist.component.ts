@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ElementId } from 'src/app/core/collections/element';
 
 @Component({
@@ -9,10 +9,14 @@ import { ElementId } from 'src/app/core/collections/element';
 export class CardlistComponent implements OnInit {
   @Input() mine: boolean = true;
   @Input() chats: ElementId[] = [];
+  @Output() selectedOption: EventEmitter<ElementId> = new EventEmitter<ElementId>();
   users = [true,false,true,false];
   constructor() { }
 
   ngOnInit(): void {
   }
-
+  selectedElement(element:ElementId){
+    
+    this.selectedOption.emit(element);
+  }
 }

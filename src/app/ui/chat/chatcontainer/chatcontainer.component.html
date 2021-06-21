@@ -6,16 +6,16 @@
 <div class="container col-12" style="padding-top: 200px;padding-bottom:50px;z-index: 997;">
    
   
-  <app-cardlist [chats]= "users" ></app-cardlist>
+  <app-cardlist (selectedOption)="selectedOption($event)" [chats]= "users" ></app-cardlist>
   
 
   </div>
 
   <nav class="col-12 main" style="bottom: 7%;position: fixed;z-index: 998;">
-   <app-searchbar></app-searchbar>
+   <app-searchbar (inputText)="writeMsg($event)"></app-searchbar>
   </nav>
 </div> 
 <!-- Button trigger modal -->
 
 
-<app-modal [item]="searchItem" (valueInputText)="saveMessage($event)" [element]="element" [edit]="true"></app-modal>
+<app-modal [item]="searchItem" (valueInputText)="saveMessage($event)" [element]="element" [detail]="detail" [edit]="true"></app-modal>
