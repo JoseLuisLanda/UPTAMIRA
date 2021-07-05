@@ -49,46 +49,53 @@ searchItem: ElementId ={options:[{name:"Cursos",value:"curso"},{name:"Anuncios",
     (<HTMLInputElement> document.getElementById("showModal")).click(); 
   }
   saveMessage(valueText: ElementId){
-    let userId:string = localStorage.getItem("userId") !== null ? localStorage.getItem("userId"):"";
-    console.log("On savemessage chatcontainer: "+valueText.name);
-   
-      this.item.id = userId;
-      this.item.url = "chats/"+userId;
-    this.item.mine = true;
-    this.item.title = valueText.name;
-    this.item.dateCreated = this.afsService.getTimeStamp();
-    console.log("ITEM: "+JSON.stringify(valueText))
-    this.afsService.set(this.item.url+"/mensajes/"+this.afsService.createId(),this.item).then(res =>{
-
-      this.fsService.getCollection(`${valueText.name}`, 5).subscribe((data) => {
-        console.log("DATA: "+JSON.stringify(data));
-        if(data !== undefined){
-          this.item.title = "Encontre la siguiente información";
-        this.recomendations =   data as ElementId[];
-        }
-        else{
-          this.item.title = `No encontre resultados sobre tu búsqueda de ${valueText.name}, intenta de nuevo`;
-        this.recomendations = [];
-        }
-        console.log("RECOMMENDATIONS: "+JSON.stringify(this.recomendations));
-        this.item.elements = [];
-
-        this.recomendations.forEach(element => {
-          this.item.elements.push({name:element.name,url:element.url} as ElementId);
-        });
-
-        this.item.mine = false;
-    
-    this.item.dateCreated = this.afsService.getTimeStamp();
-      this.afsService.set(this.item.url+"/mensajes/"+this.afsService.createId(),this.item);
-      });
-      
-
-    }).catch(error=>{
-      console.log("ERROR DE EDICION: ");
-    }).finally(()=>{
+    if(valueText !== null){
+      let userId:string = localStorage.getItem("userId") !== null ? localStorage.getItem("userId"):"";
+      console.log("On savemessage chatcontainer: "+valueText.name);
      
-    });
+        this.item.id = userId;
+        this.item.url = "chats/"+userId;
+      this.item.mine = true;
+      this.item.title = valueText.name;
+      this.item.dateCreated = this.afsService.getTimeStamp();
+      console.log("ITEM: "+JSON.stringify(valueText))
+      this.afsService.set(this.item.url+"/mensajes/"+this.afsService.createId(),this.item).then(res =>{
+  
+        this.fsService.getCollection(`${valueText.name}`, 5).subscribe((data) => {
+          console.log("DATA: "+JSON.stringify(data));
+          if(data !== undefined && data !== []){
+            this.item.title = "Encontre la siguiente información";
+          this.recomendations =   data as ElementId[];
+          }
+          else{
+            this.item.title = `No encontre resultados sobre tu búsqueda de ${valueText.name}, intenta de nuevo`;
+          this.recomendations = [];
+          }
+          console.log("RECOMMENDATIONS: "+JSON.stringify(this.recomendations));
+          this.item.elements = [];
+  
+          this.recomendations.forEach(element => {
+            this.item.elements.push({name:element.name,url:element.url} as ElementId);
+          });
+  
+          this.item.mine = false;
+      
+      this.item.dateCreated = this.afsService.getTimeStamp();
+      
+      if(this.recomendations !== [])
+        this.afsService.set(this.item.url+"/mensajes/"+this.afsService.createId(),this.item);
+        });
+        
+  
+      }).catch(error=>{
+        console.log("ERROR DE EDICION: ");
+      }).finally(()=>{
+       
+      });
+    }else{
+
+    }
+    
 
   }
   selectedOption(element:ElementId){
