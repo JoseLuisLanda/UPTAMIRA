@@ -15,11 +15,15 @@ export class ElementsearchComponent implements OnInit {
   ngOnInit(): void {
   }
   saveMessage(valueText: string){
-    this.itemToSearch.name = valueText;
-    console.log("Mensaje a guardar: "+valueText);
-    this.searchParams.emit(this.itemToSearch);
-    //(<HTMLInputElement> document.getElementById("valueText")).value = ""; 
-    (<HTMLInputElement> document.getElementById("dismissModal")).click(); 
+    if(valueText !== "")
+    {
+      this.itemToSearch.name = valueText;
+      console.log("Mensaje a guardar: "+valueText);
+      this.searchParams.emit(this.itemToSearch);
+      (<HTMLInputElement> document.getElementById("valueText")).value = ""; 
+      (<HTMLInputElement> document.getElementById("dismissModal")).click(); 
+    }
+    
 
   }
 }

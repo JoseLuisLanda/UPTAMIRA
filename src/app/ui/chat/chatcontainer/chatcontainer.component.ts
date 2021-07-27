@@ -10,7 +10,7 @@ import { FirestoreService } from 'src/app/core/services/firebase.service';
 })
 export class ChatcontainerComponent implements OnInit {
 users = [{},{},{},{}];
-recomendations :ElementId[];
+recomendations:ElementId[];
 element="Chatea Conmigo";
 item: ElementId = {} as ElementId;
 detail:boolean = false;
@@ -49,7 +49,7 @@ searchItem: ElementId ={options:[{name:"Cursos",value:"curso"},{name:"Anuncios",
     (<HTMLInputElement> document.getElementById("showModal")).click(); 
   }
   saveMessage(valueText: ElementId){
-    if(valueText !== null){
+   
       let userId:string = localStorage.getItem("userId") !== null ? localStorage.getItem("userId"):"";
       console.log("On savemessage chatcontainer: "+valueText.name);
      
@@ -63,7 +63,7 @@ searchItem: ElementId ={options:[{name:"Cursos",value:"curso"},{name:"Anuncios",
   
         this.fsService.getCollection(`${valueText.name}`, 5).subscribe((data) => {
           console.log("DATA: "+JSON.stringify(data));
-          if(data !== undefined && data !== []){
+          if(data !== undefined && data !== [] && data !== null){
             this.item.title = "Encontre la siguiente información";
           this.recomendations =   data as ElementId[];
           }
@@ -81,8 +81,8 @@ searchItem: ElementId ={options:[{name:"Cursos",value:"curso"},{name:"Anuncios",
           this.item.mine = false;
       
       this.item.dateCreated = this.afsService.getTimeStamp();
-      
-      if(this.recomendations !== [])
+
+      //if(this.recomendations !== [])
         this.afsService.set(this.item.url+"/mensajes/"+this.afsService.createId(),this.item);
         });
         
@@ -92,9 +92,7 @@ searchItem: ElementId ={options:[{name:"Cursos",value:"curso"},{name:"Anuncios",
       }).finally(()=>{
        
       });
-    }else{
-
-    }
+   
     
 
   }

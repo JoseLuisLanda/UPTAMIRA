@@ -7,6 +7,7 @@ import {
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { ElementId } from '../collections/element';
+import { AfsService } from './afs.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -19,7 +20,7 @@ export class FirestoreService {
   public elementsId: any[] = [];
   private elementsString = '';
 
-  constructor(private http: HttpClient, private db: AngularFirestore) {}
+  constructor(private http: HttpClient, private db: AngularFirestore, private afsService : AfsService) {}
 
   public getDoc(collection: string, uid: string) {
     // with ref = (collection,ref => ref.where('uid', '==', uid))
@@ -77,6 +78,8 @@ export class FirestoreService {
         ref.limit(count).orderBy("dateCreated"));
         console.log("GETTING CHATS: "+nameCollection+" id user: "+userId+" groupId: "+groupId);
       }else if(nameCollection === "aviso" || nameCollection === "curso" || nameCollection === "evento" ){
+        let datenow = Date.UTC.toString();
+        let dateFromFire = this.afsService.getTimeStamp();
         this.itemsCollection = this.db.collection<any>(nameCollection, (ref) =>
         ref.limit(count).orderBy("dateCreated"));
       }
