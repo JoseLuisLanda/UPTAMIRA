@@ -11,7 +11,7 @@
             
           </li>
           <li class="nav-item">
-            <button class="btn btn-warning btn-block" (click)="selectedElement()">Nuevo</button>
+            <button *ngIf="newBtn" class="btn btn-warning btn-block" (click)="selectedElement()">Nuevo</button>
           </li>
         </ul>
         <form (ngSubmit)="onSubmit( t )" #t="ngForm" class="d-flex aling-content-right">

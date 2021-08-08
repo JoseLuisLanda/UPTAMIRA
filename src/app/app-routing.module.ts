@@ -36,7 +36,7 @@ const routes: Routes = [
       }
     ]
   },
-  {path: '**', redirectTo: 'chat'},
+  {path: '**', redirectTo: 'home'},
   {path: 'home', component: HomeComponent},
   {path: '', component: HomeComponent}
   ];

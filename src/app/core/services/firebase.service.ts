@@ -67,7 +67,7 @@ export class FirestoreService {
       ref.where(keySearch, '==',keyValue));//.orderBy("dateCreated"));
     }else{
       let selectedGroup: ElementId = localStorage.getItem("selectedGroup") !== null ? 
-               JSON.parse(localStorage.getItem("selectedGroup")) as ElementId:{} as ElementId;
+               JSON.parse(localStorage.getItem("selectedGroup")) as ElementId:{id:"pFQpd2um0j84ZSEu84n1"} as ElementId;
       let userId:string = localStorage.getItem("userId") !== null ? localStorage.getItem("userId"):"";
       let groupId: string = selectedGroup.id !== undefined && selectedGroup.id !== null ? selectedGroup.id:"";
 

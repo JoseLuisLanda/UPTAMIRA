@@ -11,6 +11,7 @@ import { ElementId } from 'src/app/core/collections/element';
 export class HeaderchatComponent implements OnInit {
 
   @Input() navbar: ElementId = {navBarItems:[{name:"Historial"},{name:"Archivados"}],name:"default"} as ElementId;
+  @Input() newBtn: boolean = false;
   @Output() selectedItem: EventEmitter<ElementId> = new EventEmitter<ElementId>();
   @Output() searchValue: EventEmitter<string> = new EventEmitter<string>();
   @Output() searchAgain: EventEmitter<string> = new EventEmitter<string>();

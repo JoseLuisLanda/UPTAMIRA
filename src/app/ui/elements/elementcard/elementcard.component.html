@@ -1,66 +1,24 @@
-<div class="card h-100 containerHalf">
-    <button
-      *ngIf="true"
-      class="btn btn-success btn-block"
-    >
-      Agregar
-    </button>
+<div *ngIf="!showImg" class="card h-100 containerHalf">
+  
     <div *ngIf="item.images && item.images[0]; else imgDefault">
       <!-- Carousel images-->
       <div
         id="img{{ item.id }}"
         class="carousel slide"
         data-ride="carousel"
-        data-bs-ride="carousel"
-      >
-        <div class="carousel-inner">
-          <div
-            *ngFor="let image of item.images; let i = index"
-            [ngClass]="{ 'carousel-item': true, active: i == 0 }"
-            data-bs-interval="5000"
-          >
-            <img
-              class="d-block w-100"
-              style="max-height: 150px"
-              [src]="image.url"
-              [alt]="i"
-            />
-            <button
-              *ngIf="true"
-              class="btn btn-danger btn-block"
-            >
-              Remove
-            </button>
+        data-bs-ride="carousel">
+        <div class="row">
+          <div *ngFor="let image of item.images; let i = index" class="col-5">
+        
+            <img class="d-block" style="max-height: 150px;max-width: 150px;cursor:pointer" [src]="image.url"
+      (click)="selectedImage(i)"/>
+      
           </div>
         </div>
-        <a
-          *ngIf="item.images.length > 1"
-          class="carousel-control-prev"
-          href="#img{{ item.id }}"
-          role="button"
-          data-slide="prev"
-        >
-          <span
-            class="carousel-control-prev-icon"
-            aria-hidden="true"
-          ></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a
-          *ngIf="item.images.length > 1"
-          class="carousel-control-next"
-          href="#img{{ item.id }}"
-          role="button"
-          data-slide="next"
-        >
-          <span
-            class="carousel-control-next-icon"
-            aria-hidden="true"
-          ></span>
-          <span class="sr-only">Next</span>
-        </a>
+  
       </div>
       <!--END CAROUSEL-->
+     
     </div>
     <ng-template #imgDefault>
       <img
@@ -75,6 +33,14 @@
       <h5 *ngIf="item.title" class="card-title text-warning">{{ item.title }}</h5>
       <h5 *ngIf="item.displayName" class="card-title">{{ item.displayName }}</h5>
       <p *ngIf="item.description" class="card-text text-white">{{ item.description }}</p>
-      <button *ngIf="!selected" class="btn btn-outline-warning" (click)="selectedElement()">Seleccionar</button>
+      <button *ngIf="!selected && !detail" class="btn btn-outline-warning" (click)="selectedElement()">Seleccionar</button>
     </div>
+  </div>
+  <div *ngIf="showImg">
+    <button class="btn btn-danger" (click)="closeImg()">Cerrar</button>
+    <img
+    class="d-block w-100"
+    [src]="imgURL"
+    [alt]="i"
+  />
   </div>
