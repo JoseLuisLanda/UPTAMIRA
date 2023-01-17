@@ -95,7 +95,7 @@ return false;
 }
 
 private _esImagen( tipoArchivo: string ): boolean {
-  return ( tipoArchivo === '' || tipoArchivo === undefined) ? false : tipoArchivo.startsWith('image');
+  return ( tipoArchivo === '' || tipoArchivo === undefined) ? false : true;
 }
 
 }
