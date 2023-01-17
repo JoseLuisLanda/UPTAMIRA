@@ -1,40 +1,25 @@
-name: Build and Deploy
-on:
+name: Deploy to Firebase Hosting on merge
+'on':
   push:
     branches:
       - main
-
 jobs:
-  build:
-    name: Build
+  build_and_deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@main
-      - name: Install Dependencies
-        run: npm install
+      - uses: actions/checkout@v2
+      - name: Install Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '16.x' 
+      - name: npm dependencies
+        run: npm install     
       - name: Build
         run: npm run build --prod
-      - name: Archive Production Artifact
-        uses: actions/upload-artifact@main
+      - run: npm run build
+      - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          name: uptamira
-          path: dist/uptamira
-  deploy:
-    name: Deploy
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@main
-      - name: Download Artifact
-        uses: actions/download-artifact@main
-        with:
-          name: uptamira
-          path: dist/uptamira
-      - name: Deploy to Firebase
-        uses: w9jds/firebase-action@master
-        with:
-          args: deploy --only hosting
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+              repoToken: '${{ secrets.GITHUB_TOKEN }}'
+              firebaseServiceAccount: '${{ secrets.FIREBASE_TOKEN }}'
+              channelId: live
+              projectId: uptamira
